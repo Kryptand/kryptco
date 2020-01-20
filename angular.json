@@ -1,7 +1,56 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "ui-router-decorators": {
+      "projectType": "library",
+      "root": "libs/ui/router-decorators",
+      "sourceRoot": "libs/ui/router-decorators/src",
+      "prefix": "kryptco",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/ui/router-decorators/tsconfig.lib.json",
+            "project": "libs/ui/router-decorators/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/router-decorators/tsconfig.lib.json",
+              "libs/ui/router-decorators/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/router-decorators/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/router-decorators/jest.config.js",
+            "tsConfig": "libs/ui/router-decorators/tsconfig.spec.json",
+            "setupFile": "libs/ui/router-decorators/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "ui-router-decorators"
 }
